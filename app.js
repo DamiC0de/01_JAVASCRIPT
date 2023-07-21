@@ -19,6 +19,7 @@ function addMovieToDOM(movie) {
     moviePoster.src = movie.Poster;
     moviePoster.dataset.src = movie.Poster;
     moviePoster.src = '';
+    // On assigne à l'attribut src de l'image l'URL de l'affiche du film, puis on sauvegarde cette URL dans l'attribut data-src, avant de réinitialiser l'attribut src. Ceci permet de ne pas charger l'image tout de suite.
     observer.observe(moviePoster);
     moviePoster.alt = 'Affiche du film';
     moviePoster.classList.add('movie-poster');
@@ -59,7 +60,6 @@ function addMovieToDOM(movie) {
 async function showMovieDetails(event) {
     const button = event.currentTarget;
     const imdbId = button.dataset.imdbId;
-    const apiKey = "312b602f";
   
     try {
         const response = await fetch(`https://www.omdbapi.com/?i=${imdbId}&apikey=${API_KEY}`);
@@ -96,10 +96,9 @@ async function showMovieDetails(event) {
       event.preventDefault();
   
       const searchTerm = input.value;
-      const apiKey = "312b602f";
   
       try {
-        const response = await fetch(`https://www.omdbapi.com/?s=${searchTerm}&page=1&&apikey=${apiKey}`);
+        const response = await fetch(`https://www.omdbapi.com/?s=${searchTerm}&page=1&&apikey=${API_KEY}`);
         const data = await response.json();
   
         // Supprime tous les anciens films
